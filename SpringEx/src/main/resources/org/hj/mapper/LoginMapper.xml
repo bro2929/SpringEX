@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  
+  <mapper namespace="org.hj.mapper.LoginMapper">
+  	
+  	<insert id="memreg">	<!-- 추상 메서드 이름과 id값을 일치시켜주면 --><!-- 메서드 형식은 아니지만 구현메서드 역할을 함 -Spring이라 가능 -->
+  		INSERT into naver_member(id, password, name, birth, gender)
+  		values(#{id}, #{password}, #{name}, sysdate(), "f");
+  	</insert>
+  	
+  	<select id="login" resultType="org.hj.model.LoginVO">	<!-- SQL 문법 -->
+  		<!-- 로그인이 가능한 대상인지 셀렉 -->
+  		SELECT id, password
+  		FROM naver_member
+  		WHERE id=#{id} and password=#{password}
+  	</select>
+  	
+  	<select id="memlist" resultType="org.hj.model.LoginVO">	<!-- selct한 결과를 LoginVO에 저장 -->
+  		SELECT * 
+  		FROM naver_member;
+  	</select>
+  	
+	<select id="memDetail" resultType="org.hj.model.LoginVO">	<!-- SQL 문법 -->
+  		SELECT *
+  		FROM naver_member
+  		WHERE id=#{id};
+  	</select>
+   	
+	<update id="memModify">	<!-- update는 리턴이 아닌 select를 해서 결과를 확인 => resultType이 필요X -->
+							<!-- update되면 끝이니까 담아서 돌아갈 필요가 없음 -->
+  		update naver_member
+		set name=#{name}, password=#{password}, email=#{email}, phone=#{phone}
+		where id=#{id}; <!-- 아이디가 ""인 데이터만 update -->  	
+	</update>
+
+	<delete id="memRemove">
+		Delete from naver_member
+		where id=#{id};	
+	</delete>
+	 
+  </mapper>
