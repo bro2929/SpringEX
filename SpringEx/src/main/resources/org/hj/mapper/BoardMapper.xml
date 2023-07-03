@@ -5,6 +5,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
+  <!-- mapper.java와 연결 -->
   <mapper namespace="org.hj.mapper.BoardMapper">
    
   		<!-- 제목, 내용을 board테이블 insert -->

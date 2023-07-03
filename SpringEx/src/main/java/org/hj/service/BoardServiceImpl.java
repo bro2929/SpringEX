@@ -24,8 +24,10 @@ import org.springframework.transaction.annotation.Transactional;
 			// BoardMapper에 있는 write메서드를 호출
 			// 메서드의 매개변수를 통해 BoardVO 값을
 			// BoardMapper의 write 메서드로 전달
+			// 첨부파일이 없을때 이 한줄만
 			bm.write(board);
 			
+			// 첨부파일이 있을 때 함께
 			board.getAttach().forEach(attach->{
 				System.out.println("service="+attach);
 			// AttachFileVO의 bno에 BoardVO의 bno를 저장 

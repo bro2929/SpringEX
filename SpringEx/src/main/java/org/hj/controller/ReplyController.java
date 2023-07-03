@@ -30,16 +30,16 @@ public class ReplyController {
 		
 		System.out.println(reply);
 		// result가 1이면 HttpStatus.OK
-		// result가 0이면 HttpStatus.INTERNAL_SERVER_ERROR 
-		return result==1? new ResponseEntity<>("success",HttpStatus.OK)
-						: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		// result가 0이면 HttpStatus.INTERNAL_SERVER_ERROR 							// ResponseEntity: select 결과를 통신상태와 함께 보냄
+		return result==1? new ResponseEntity<>("success",HttpStatus.OK)				// success문자열을 success로
+						: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);	// error면 error로 던짐(js파일로)
 	}
 	// 댓글 목록 리스트
 	@RequestMapping(value = "/replies/{bno}/{page}", method = RequestMethod.GET)
 	public ResponseEntity <ReplyPageVO> getList(@PathVariable("page") int page,@PathVariable("bno") int bno){
 		System.out.println(bno);
 		CriteriaVO cri = new CriteriaVO(page,10);
-		return new ResponseEntity<>(rs.list(cri, bno),HttpStatus.OK);
+		return new ResponseEntity<>(rs.list(cri, bno),HttpStatus.OK);// 
 	}
 	// 댓글 수정
 	@RequestMapping(value = "/replies/modify", method = RequestMethod.PUT)

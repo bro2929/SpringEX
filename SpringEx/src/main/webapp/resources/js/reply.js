@@ -16,7 +16,7 @@ $(document).ready(function(){	// jquery 준비...
 		var replyValue=$("#reply").val();
 		var idValue="abcd1";
 		// 댓글쓰기를 하기 위한 함수 호출
-		add({bno:bnoValue,reply:replyValue,id:idValue});
+		add({bno:bnoValue,reply:replyValue,id:idValue});//게시판 번호,내용,작성자를 reply에 저장
 	})
 	// 댓글 수정버튼을 클릭하면
 	// 이미 존재하는 태그에 이벤트를 처리하고
@@ -57,7 +57,7 @@ $(document).ready(function(){	// jquery 준비...
 // 댓글 삭제를 하기 위한 함수 선언
 function remove(reply){
 	console.log(reply);
-	$.ajax({
+	$.ajax({// $.ajax: 비동기식으로 처리하겠다
 		type:"delete",
 		url:"/replies/remove/",
 		data:JSON.stringify(reply),
@@ -75,14 +75,14 @@ function remove(reply){
 // 댓글 수정을 하기 위한 함수 선언
 function modify(reply){
 	console.log(reply);
-	$.ajax({
-		type:"put",	// method방식(get, post, put, delete)
-		url:"/replies/modify",
-		data:JSON.stringify(reply),
+	$.ajax({							
+		type:"put",						// method방식(get, post, put, delete)
+		url:"/replies/modify",			
+		data:JSON.stringify(reply),		
 		// contentType : ajax -> controller로 데이터 전송 시 타입
 		// (contentType을 생략하면 web Brower한테 위임)
 		contentType:"application/json; charset=utf-8",
-		success:function(result){
+		success:function(result){		
 			if(result=="success"){
 				alert("댓글수정 성공")
 			}
@@ -156,15 +156,15 @@ function showReplyPage(replycnt,pageNum){
 
 // 댓글 쓰기를 하기 위한 함수 선언
 function add(reply){	// add함수 선언 시작
-	console.log(reply);
-	$.ajax({
-		type:"post",	// method방식(get, post, put, delete)
-		url:"/replies/new",
-		data:JSON.stringify(reply),
+	console.log(reply);	// reply에 저장(VO역할) -> 이후 Controller에 전달
+	$.ajax({						// $.ajax: 비동기식으로 처리하겠다
+		type:"post",				// method방식(get, post, put, delete)
+		url:"/replies/new",			// action="서버주소"와 같음
+		data:JSON.stringify(reply),	// BoardVO 역할(데이터 그릇)
 		// contentType : ajax -> controller로 데이터 전송 시 타입
 		// (contentType을 생략하면 web Brower한테 위임)
 		contentType:"application/json; charset=utf-8",
-		success:function(result){
+		success:function(result){		// insert 결과와 통신 상태를 함께 리턴
 			if(result=="success"){
 				alert("댓글쓰기 성공")
 				list(reply.bno)
